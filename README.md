@@ -52,3 +52,11 @@ Mailhog url: [http://localhsot:8025](http://localhost:8025)
 Adminer url: [http://localhsot:1337](http://localhost:1337) (login `sail`, pass `password`, driver `PostgreSQL`)
 
 ***
+
+## DEMO
+
+
+
+https://github.com/m1n64/telegram-posts-editor/assets/24874264/a8116150-841d-4341-b2b9-c81ed8b9d12b
+
+
