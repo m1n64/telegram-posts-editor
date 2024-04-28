@@ -1,0 +1,24 @@
+{
+	"name": "modules/posts",
+	"description": "",
+	"type": "library",
+	"version": "1.0",
+	"license": "proprietary",
+	"require": {},
+	"autoload": {
+		"psr-4": {
+			"Modules\\Posts\\": "src/",
+			"Modules\\Posts\\Tests\\": "tests/",
+			"Modules\\Posts\\Database\\Factories\\": "database/factories/",
+			"Modules\\Posts\\Database\\Seeders\\": "database/seeders/"
+		}
+	},
+	"minimum-stability": "stable",
+	"extra": {
+		"laravel": {
+			"providers": [
+				"Modules\\Posts\\Providers\\PostsServiceProvider"
+			]
+		}
+	}
+}

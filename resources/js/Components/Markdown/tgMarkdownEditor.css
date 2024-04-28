@@ -1,0 +1,21 @@
+.spoiler-wrapper {
+    /*background-color: #cecece;*/
+    animation: backgroundAnimation 3s infinite;
+    /*color: #cecece;*/
+    border-radius: 5px;
+    padding: 0 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.spoiler-wrapper.active {
+    animation: none;
+    color: #333333;
+    padding: 0;
+}
+
+@keyframes backgroundAnimation {
+    0% { background-color: #cecece; color: #cecece; }
+    50% { background-color: #e8e8e8; color: #e8e8e8; }
+    100% { background-color: #cecece; color: #cecece; }
+}

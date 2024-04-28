@@ -1,0 +1,74 @@
+# For more information: https://laravel.com/docs/sail
+version: '3.8'
+services:
+    laravel.test:
+        build:
+            context: ./docker/php
+            dockerfile: Dockerfile
+            target: base
+            args:
+                WWWGROUP: '${WWWGROUP}'
+        image: sail-8.2/app
+        container_name: app
+        extra_hosts:
+            - 'host.docker.internal:host-gateway'
+        ports:
+            - '${APP_PORT:-80}:80'
+            - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
+        environment:
+            WWWUSER: '${WWWUSER}'
+            LARAVEL_SAIL: 1
+            XDEBUG_MODE: 'debug'
+            XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
+            IGNITION_LOCAL_SITES_PATH: '${PWD}'
+            DB_CONNECTION: 'pgsql'
+            DB_HOST: db
+            DB_PORT: 5432
+            DB_USERNAME: ${DB_USERNAME}
+            DB_PASSWORD: ${DB_PASSWORD}
+            REDIS_HOST: redis
+        volumes:
+            - ./:/var/www/html
+        depends_on:
+            - db
+            - redis
+            - mailhog
+
+    db:
+        image: postgres:15
+        container_name: db
+        restart: unless-stopped
+        environment:
+            POSTGRES_DB: ${DB_DATABASE}
+            POSTGRES_USER: ${DB_USERNAME}
+            POSTGRES_PASSWORD: ${DB_PASSWORD}
+        volumes:
+            - ./db:/var/lib/postgresql/data
+        command: ["postgres", "-c", "max_connections=200"]
+        ports:
+            - "5432:5432"
+
+    redis:
+        image: redis:alpine
+        container_name: redis
+        volumes:
+            - ./redis:/data
+        ports:
+            - "6379:6379"
+
+
+    mailhog:
+        image: 'mailhog/mailhog:latest'
+        container_name: mailhog
+        ports:
+            - '${FORWARD_MAILHOG_PORT:-1025}:1025'
+            - '${FORWARD_MAILHOG_DASHBOARD_PORT:-8025}:8025'
+
+    adminer:
+        image: adminer
+        container_name: adminer
+        restart: always
+
+volumes:
+    db:
+        driver: local

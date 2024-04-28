@@ -1,0 +1,24 @@
+{
+	"name": "modules/channels",
+	"description": "",
+	"type": "library",
+	"version": "1.0",
+	"license": "proprietary",
+	"require": {},
+	"autoload": {
+		"psr-4": {
+			"Modules\\Channels\\": "src/",
+			"Modules\\Channels\\Tests\\": "tests/",
+			"Modules\\Channels\\Database\\Factories\\": "database/factories/",
+			"Modules\\Channels\\Database\\Seeders\\": "database/seeders/"
+		}
+	},
+	"minimum-stability": "stable",
+	"extra": {
+		"laravel": {
+			"providers": [
+				"Modules\\Channels\\Providers\\ChannelsServiceProvider"
+			]
+		}
+	}
+}
