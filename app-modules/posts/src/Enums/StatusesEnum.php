@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Modules\Posts\Enums;
 
+use phpDocumentor\Reflection\Types\Self_;
+
 enum StatusesEnum: int
 {
     case DRAFT = 0;
@@ -15,6 +17,8 @@ enum StatusesEnum: int
 
     case PUBLISHED = 4;
 
+    case CANCELED = 5;
+
     /**
      * @return string
      */
@@ -26,6 +30,7 @@ enum StatusesEnum: int
             self::PENDING => 'Pending',
             self::PUBLISHED => 'Published',
             self::ERROR => 'Error publish',
+            self::CANCELED => 'Canceled',
         };
     }
 
@@ -40,6 +45,7 @@ enum StatusesEnum: int
             self::PENDING => 'pending',
             self::PUBLISHED => 'published',
             self::ERROR => 'error',
+            self::CANCELED => 'canceled',
         };
     }
 }

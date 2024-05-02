@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import {Head, Link, router} from "@inertiajs/react";
 import {Card} from "@/Components/Card/Card.jsx";
@@ -8,7 +8,6 @@ import {TgMarkdownEditor} from "@/Components/Markdown/TgMarkdownEditor.jsx";
 import TextInput from "@/Components/TextInput.jsx";
 import InputLabel from "@/Components/InputLabel.jsx";
 import {API, errorToast} from "@/api/api.js";
-import {toast} from "react-toastify";
 import {LayoutContentHeader} from "@/Components/Header/LayoutContentHeader.jsx";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {BoxElement, BoxList} from "@/Components/List/index.js";
@@ -16,6 +15,7 @@ import {PrimaryInputButton, PrimaryInputFileButton} from "@/Components/Buttons/P
 import {Line} from "@/Components/Decorations/Line.jsx";
 import Modal from "@/Components/Modal.jsx";
 import {Header} from "@/Components/Header/Header.jsx";
+
 export default function Editor({auth, channelId, postId = null, post = null}) {
     const [title, setTitle] = useState(post?.title ?? "");
     const [text, setText] = useState(post?.content_decoded ?? "");
@@ -43,7 +43,7 @@ export default function Editor({auth, channelId, postId = null, post = null}) {
         loadFiles();
     }, [post]);
 
-    const selectFile = (event) => {
+    const selectFile = useCallback((event) => {
         const files = event.target.files;
         const uploadedImages = [];
         const uploadedImageFiles = [];
@@ -65,7 +65,7 @@ export default function Editor({auth, channelId, postId = null, post = null}) {
 
         setImages(uploadedImages);
         setImageFiles(uploadedImageFiles);
-    };
+    }, []);
 
     const removeFile = (index) => {
         const newImages = [...images];
@@ -82,11 +82,11 @@ export default function Editor({auth, channelId, postId = null, post = null}) {
     };
 
     const sendTelegram = () => {
-        saveRequest(title, text, channelId, channelPostId, "send", "Successfully saved and sent to channel");
+        saveRequest(title, text, channelId, channelPostId, "send");
     }
 
     const scheduleTelegram = () => {
-        saveRequest(title, text, channelId, channelPostId, "schedule", "Successfully saved and scheduled");
+        saveRequest(title, text, channelId, channelPostId, "schedule");
     }
 
     const saveAsNew = () => {
@@ -97,7 +97,7 @@ export default function Editor({auth, channelId, postId = null, post = null}) {
         saveRequest(title, text, channelId, channelPostId);
     }
 
-    const saveRequest = (title, text, channelId, channelPostId = null, action = "save", toastMessage = "Successfully saved") => {
+    const saveRequest = (title, text, channelId, channelPostId = null, action = "save") => {
         const apiObject = action === "save" ? API.posts.save : (action === "schedule" ? API.posts.schedule : API.posts.send)
 
         const formData = new FormData();
@@ -123,7 +123,6 @@ export default function Editor({auth, channelId, postId = null, post = null}) {
 
         apiObject(formData)
             .then(response => {
-                toast.success(toastMessage);
                 const newPostId = response.data.data.id;
 
                 if (newPostId === channelPostId) {

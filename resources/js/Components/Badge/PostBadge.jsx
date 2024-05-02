@@ -17,6 +17,9 @@ export const PostBadge = ({children, type = 'draft', ...props}) => {
         case 'error':
             color = 'bg-red-100 text-red-800';
             break;
+        case 'canceled':
+            color = 'bg-orange-100 text-orange-800';
+            break;
     }
 
     return (

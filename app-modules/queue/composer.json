@@ -1,0 +1,24 @@
+{
+	"name": "modules/queue",
+	"description": "",
+	"type": "library",
+	"version": "1.0",
+	"license": "proprietary",
+	"require": {},
+	"autoload": {
+		"psr-4": {
+			"Modules\\Queue\\": "src/",
+			"Modules\\Queue\\Tests\\": "tests/",
+			"Modules\\Queue\\Database\\Factories\\": "database/factories/",
+			"Modules\\Queue\\Database\\Seeders\\": "database/seeders/"
+		}
+	},
+	"minimum-stability": "stable",
+	"extra": {
+		"laravel": {
+			"providers": [
+				"Modules\\Queue\\Providers\\QueueServiceProvider"
+			]
+		}
+	}
+}

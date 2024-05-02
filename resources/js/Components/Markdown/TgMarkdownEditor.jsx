@@ -6,6 +6,7 @@ import 'react-markdown-editor-lite/lib/index.css';
 import 'highlight.js/styles/default.css';
 import './tgMarkdownEditor.css';
 import markdownItRegex from 'markdown-it-regex'
+import {memo} from "react";
 
 const mdParser = new MarkdownIt({
     breaks: true,
@@ -122,7 +123,7 @@ TgMdEditor.use(SpoilerPlugin);
 
 export { mdParser };
 
-export const TgMarkdownEditor = ({value, onChange}) => {
+export const TgMarkdownEditor = memo(({value, onChange}) => {
 
     return (
         <TgMdEditor
@@ -134,4 +135,4 @@ export const TgMarkdownEditor = ({value, onChange}) => {
             shortcuts={true}
         />
     )
-}
+})

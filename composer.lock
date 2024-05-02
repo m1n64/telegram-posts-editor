@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2ec49b7ba885f20f44369784edd27490",
+    "content-hash": "948df5920938110fe9ff74113cc07cec",
     "packages": [
         {
             "name": "brick/math",
@@ -3277,6 +3277,38 @@
                     "Modules\\Posts\\Tests\\": "tests/",
                     "Modules\\Posts\\Database\\Factories\\": "database/factories/",
                     "Modules\\Posts\\Database\\Seeders\\": "database/seeders/"
+                }
+            },
+            "license": [
+                "proprietary"
+            ],
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
+        },
+        {
+            "name": "modules/queue",
+            "version": "1.0",
+            "dist": {
+                "type": "path",
+                "url": "app-modules/queue",
+                "reference": "73df01a1fabc8357b1ced79e7ef6e8d2658f24d2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Modules\\Queue\\Providers\\QueueServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Modules\\Queue\\": "src/",
+                    "Modules\\Queue\\Tests\\": "tests/",
+                    "Modules\\Queue\\Database\\Factories\\": "database/factories/",
+                    "Modules\\Queue\\Database\\Seeders\\": "database/seeders/"
                 }
             },
             "license": [
@@ -11595,9 +11627,9 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "telegram-bot-sdk/telegram-bot-sdk": 20,
+        "laravel/reverb": 10,
         "telegram-bot-sdk/addon-manager": 20,
-        "laravel/reverb": 10
+        "telegram-bot-sdk/telegram-bot-sdk": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

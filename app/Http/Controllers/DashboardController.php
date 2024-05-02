@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Actions\Dashboard\ContentEditorAction;
 use App\Http\Actions\Dashboard\IndexAction;
+use App\Http\Actions\Dashboard\ScheduledAction;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -11,6 +12,8 @@ use Inertia\Response;
 use Modules\Channels\Models\TelegramKey;
 use Modules\Posts\Http\Resources\Api\Posts\AllPostsResource;
 use Modules\Posts\Models\Post;
+use Modules\Queue\DTO\RedisQueueJobDTO;
+use Modules\Queue\Services\RedisQueueManager;
 
 class DashboardController extends Controller
 {
@@ -43,11 +46,27 @@ class DashboardController extends Controller
      */
     public function history(Request $request, int $id)
     {
-        $posts = $request->user()->telegramKeys()->whereId($id)->first()->posts()->paginate(Post::MAX_PER_PAGE);
+        $posts = $request->user()->telegramKeys()->whereId($id)->first()->posts()->orderBy('id')->get()/*->paginate(Post::MAX_PER_PAGE)*/;
 
-        return Inertia::render('Content/History', [
+        return Inertia::render('Content/HistoryTable', [
             'channelId' => $id,
             'posts' => AllPostsResource::collection($posts),
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @param ScheduledAction $action
+     * @param int $id
+     * @return Response
+     */
+    public function scheduled(Request $request, ScheduledAction $action, int $id)
+    {
+        $posts = $action($id);
+
+        return Inertia::render('Content/ScheduledPost', [
+            'channelId' => $id,
+            'scheduledPosts' => $posts
         ]);
     }
 }

@@ -57,8 +57,9 @@ export default function History({auth, channelId, posts}) {
                     ))}
                 </List>
                 <BoxList>
-                    {posts.meta.links.map(link => (
+                    {posts.meta.links.map((link, key) => (
                         <ButtonLink
+                            key={key}
                             href={link.url}
                             type={"link"}
                             disabled={link.active}

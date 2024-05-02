@@ -89,8 +89,9 @@ export default function Dashboard({auth, bots}) {
                                 </div>
                             </div>
 
-                            <div>
+                            <div className={"flex space-x-4"}>
                                 <DefaultLink href={route('content.editor', {id: channel.id})}>Open editor</DefaultLink>
+                                <DefaultLink href={route('content.history', {id: channel.id})}>Posts history</DefaultLink>
                             </div>
 
                         </BoxElement>))

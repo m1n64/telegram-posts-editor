@@ -11,7 +11,7 @@ import { EDITOR_JS_TOOLS } from "./WYSIWYG/tools";
  * @returns {JSX.Element}
  * @constructor
  */
-const TgWysiwugEditor = ({ data, onChange, editorblock }) => {
+const TgWysiwugEditor = ({ data, onChange, editorblock = 'wyswigEditor' }) => {
     const ref = useRef();
     //Initialize editorjs
     useEffect(() => {

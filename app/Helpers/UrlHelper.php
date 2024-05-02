@@ -11,7 +11,7 @@ class UrlHelper
      */
     public function encodeURIComponent($string): string
     {
-        $specialChars = '#-+={}.!';
+        $specialChars = '#-+=(){}.!';
 
         $encodedString = '';
         for ($i = 0; $i < strlen($string); $i++) {

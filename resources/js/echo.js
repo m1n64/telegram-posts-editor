@@ -1,6 +1,8 @@
 import Echo from 'laravel-echo';
 
 import Pusher from 'pusher-js';
+import {apiToken} from "@/api/api.js";
+
 window.Pusher = Pusher;
 
 window.Echo = new Echo({
@@ -11,4 +13,10 @@ window.Echo = new Echo({
     wssPort: import.meta.env.VITE_REVERB_PORT ?? 443,
     forceTLS: (import.meta.env.VITE_REVERB_SCHEME ?? 'https') === 'https',
     enabledTransports: ['ws', 'wss'],
+    authEndpoint: '/broadcasting/auth',
+    auth: {
+        headers: {
+            Authorization: 'Bearer ' + apiToken
+        }
+    }
 });

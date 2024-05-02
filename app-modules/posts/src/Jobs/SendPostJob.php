@@ -8,6 +8,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Modules\Auth\Enums\NotificationStatusesEnum;
+use Modules\Auth\Events\NotificationEvent;
 use Modules\Posts\Enums\StatusesEnum;
 use Modules\Posts\Models\Post;
 use Telegram\Bot\Api;
@@ -25,7 +27,7 @@ class SendPostJob implements ShouldQueue
      * @param Post $post
      */
     public function __construct(
-        protected Post $post,
+        public Post $post,
     )
     {
     }
@@ -38,7 +40,7 @@ class SendPostJob implements ShouldQueue
     {
         $urlHelper = new UrlHelper();
 
-        $telegramKey = $this->post->telegramKey()->first();
+        $telegramKey = $this->post->telegramKey()->with(['user'])->first();
 
         try {
             $tgApi = new Api($telegramKey->api_key);
@@ -73,10 +75,13 @@ class SendPostJob implements ShouldQueue
                 'status' => StatusesEnum::PUBLISHED->value,
             ]);
 
+            event(new NotificationEvent("Post was successfully sent", NotificationStatusesEnum::SUCCESS, $telegramKey->user->id));
         } catch (TelegramSDKException $e) {
             $this->post->update([
                 'status' => StatusesEnum::ERROR->value,
             ]);
+
+            event(new NotificationEvent("Error sending post: {$e->getMessage()}", NotificationStatusesEnum::ERROR, $telegramKey->user->id));
 
             throw $e;
         }

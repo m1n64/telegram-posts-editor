@@ -1,6 +1,7 @@
 import Paragraph from "@editorjs/paragraph";
 import Link from "@editorjs/link";
 import Code from "@editorjs/code";
+import Underline from '@editorjs/underline';
 
 export const EDITOR_JS_TOOLS = {
     paragraph: {
@@ -9,4 +10,5 @@ export const EDITOR_JS_TOOLS = {
     },
     link: Link,
     code: Code,
+    underline: Underline,
 };

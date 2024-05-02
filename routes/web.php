@@ -16,6 +16,7 @@ Route::get('/', function () {
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/content-editor/{id}/{postId?}', [DashboardController::class, 'contentEditor'])->middleware(['auth', 'verified', 'check.telegram.key'])->name('content.editor');
 Route::get('/content-history/{id}', [DashboardController::class, 'history'])->middleware(['auth', 'verified', 'check.telegram.key'])->name('content.history');
+Route::get('/content-scheduled/{id}', [DashboardController::class, 'scheduled'])->middleware(['auth', 'verified', 'check.telegram.key'])->name('content.scheduled');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

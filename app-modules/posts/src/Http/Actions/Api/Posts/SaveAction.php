@@ -3,13 +3,10 @@ declare(strict_types=1);
 
 namespace Modules\Posts\Http\Actions\Api\Posts;
 
+use Modules\Auth\Enums\NotificationStatusesEnum;
+use Modules\Auth\Events\NotificationEvent;
 use Modules\Posts\DTO\PostDTO;
 use Modules\Posts\Services\PostService;
-use Telegram\Bot\Api;
-use Telegram\Bot\FileUpload\InputFile;
-use Telegram\Bot\Objects\InputContent\InputMessageContent;
-use Telegram\Bot\Objects\InputMedia\InputMedia;
-use Telegram\Bot\Objects\InputMedia\InputMediaPhoto;
 
 class SaveAction
 {
@@ -24,10 +21,14 @@ class SaveAction
 
     /**
      * @param PostDTO $dto
+     * @param int $userId
      * @return int
      */
-    public function __invoke(PostDTO $dto): int
+    public function __invoke(PostDTO $dto, int $userId): int
     {
-        return $this->postService->save($dto)->id;
+        $post = $this->postService->save($dto);
+
+        event(new NotificationEvent('Successfully saved', NotificationStatusesEnum::SUCCESS, $userId));
+        return $post->id;
     }
 }

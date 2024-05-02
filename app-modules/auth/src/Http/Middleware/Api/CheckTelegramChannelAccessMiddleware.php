@@ -17,13 +17,15 @@ class CheckTelegramChannelAccessMiddleware
      */
     public function handle(Request $request, Closure $next): Response|ErrorJsonResponse
     {
-        if (!$request->telegram_key_id) {
+        if (!$request->telegram_key_id || !$request->telegramKeyId) {
             return $next($request);
         }
 
         $user = $request->user();
 
-        if (!$user->telegramKeys()->whereId($request->telegram_key_id)->exists()) {
+        $telegramKeyId = $request->telegram_key_id ?? $request->telegramKeyId;
+
+        if (!$user->telegramKeys()->whereId($telegramKeyId)->exists()) {
             return new ErrorJsonResponse('You don\'t have access to this channel', HttpStatusesEnum::FORBIDDEN);
         }
 

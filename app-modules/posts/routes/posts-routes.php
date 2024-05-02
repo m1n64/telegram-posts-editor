@@ -7,4 +7,5 @@ Route::group(['prefix' => 'posts', 'middleware' => ['auth:sanctum', 'api.check.t
     Route::post('/save', [PostsController::class, 'save'])->name('api.posts.save');
     Route::post('/send', [PostsController::class, 'send'])->name('api.posts.send');
     Route::post('/schedule', [PostsController::class, 'schedule'])->name('api.posts.schedule');
+    Route::delete('/schedule/remove/{telegramKeyId}/{jobUuid}', [PostsController::class, 'removeFromQueue'])->name('api.posts.schedule.remove');
 });

@@ -11,8 +11,6 @@
         "php": "^8.2",
         "inertiajs/inertia-laravel": "^1.0",
         "internachi/modular": "^2.2",
-        "telegram-bot-sdk/telegram-bot-sdk": "^4.0-dev",
-        "telegram-bot-sdk/addon-manager": "^1.0-dev",
         "laravel/framework": "^11.0",
         "laravel/octane": "^2.3",
         "laravel/reverb": "@beta",
@@ -22,8 +20,12 @@
         "modules/auth": "*",
         "modules/channels": "*",
         "modules/posts": "*",
+        "modules/queue": "*",
         "predis/predis": "^2.0",
-        "tightenco/ziggy": "^2.0"
+        "telegram-bot-sdk/addon-manager": "^1.0-dev",
+        "telegram-bot-sdk/telegram-bot-sdk": "^4.0-dev",
+        "tightenco/ziggy": "^2.0",
+        "ext-redis": "*"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.0",
