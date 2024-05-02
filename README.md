@@ -30,10 +30,16 @@ chmod 755 ./sail
 ./sail npm i
 ```
 ```bash
-./sail artisan migrate --seed
+./sail artisan key:generate
+```
+```bash
+./sail artisan migrate
 ```
 ```bash
 ./sail artisan storage:link
+```
+```bash
+./sail npm run build
 ```
 Reload app:
 ```bash
@@ -59,4 +65,12 @@ Adminer url: [http://localhsot:1337](http://localhost:1337) (login `sail`, pass 
 
 https://github.com/m1n64/telegram-posts-editor/assets/24874264/a8116150-841d-4341-b2b9-c81ed8b9d12b
 
+### Ver 2
+Table view for posts
+![image](https://github.com/m1n64/telegram-posts-editor/assets/24874264/7e8f02fe-2919-4513-b8d8-58afc2b5331a)
 
+Server notifications
+![image](https://github.com/m1n64/telegram-posts-editor/assets/24874264/d95b5a0b-c2c2-45a8-9a14-786bd0b9e77b)
+
+Table for scheduled posts with remove from queue
+![image](https://github.com/m1n64/telegram-posts-editor/assets/24874264/845c6065-87d6-40f1-abcb-694a9cc0c1e6)
