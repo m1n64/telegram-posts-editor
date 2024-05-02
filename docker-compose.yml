@@ -30,6 +30,7 @@ services:
             REDIS_HOST: redis
         volumes:
             - ./:/var/www/html
+            - ./docker/php/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
         depends_on:
             - db
             - redis
